@@ -11,6 +11,7 @@ namespace TelegramBot.SF_English_bot
     /// </summary>
     class BotMessageLogic
     {
+        private Messenger messanger;
         public void Responce ()
         {
 
