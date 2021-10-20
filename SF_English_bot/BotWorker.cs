@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
-namespace TelegramBot.SF_English_bot
+namespace SF_English_bot
 {
-    /// <summary>
-    /// Base bot operations. Initialize. Start. Stop.
-    /// </summary>
     class BotWorker
     {
         private ITelegramBotClient client;
         private BotMessageLogic logic;
-
-        public void Inizailze ()
+        public void Inizalize()
         {
             client = new TelegramBotClient(BotToken.token);
             logic = new BotMessageLogic();
@@ -24,17 +20,18 @@ namespace TelegramBot.SF_English_bot
 
         public void Start()
         {
-            client.OnMessage += Bot_OnMessage;
             client.StartReceiving();
+            client.OnMessage += TelegramMessageHandler;
         }
 
-        private async void Bot_OnMessage(object sender, MessageEventArgs e)
+        private async void TelegramMessageHandler(object sender, MessageEventArgs e)
         {
-            if (e.Message.Text != null)
+            var msg = e.Message;
+
+            if (msg.Text != null)
             {
-                await client.SendTextMessageAsync(
-                    chatId: e.Message.Chat,
-                    text: "Вы написали:\n" + e.Message.Text);
+                Console.WriteLine($"Пришло сообщение: {msg.Text}");
+                await client.SendTextMessageAsync(msg.Chat.Id, msg.Text, replyToMessageId: msg.MessageId);
             }
         }
 
@@ -42,8 +39,5 @@ namespace TelegramBot.SF_English_bot
         {
             client.StopReceiving();
         }
-
-        
-
     }
 }

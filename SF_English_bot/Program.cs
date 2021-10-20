@@ -1,8 +1,8 @@
 ﻿using System;
 using Telegram.Bot;
-using TelegramBot.SF_English_bot;
+using Telegram.Bot.Args;
 
-namespace SF_English_bot.BaseBody
+namespace SF_English_bot
 {
     /// <summary>
     /// Base class. Some simple operations.
@@ -13,21 +13,21 @@ namespace SF_English_bot.BaseBody
         {
             var bot = new BotWorker();
 
-            bot.Inizailze();
+            bot.Inizalize();
             bot.Start();
 
-            Console.WriteLine("Напишите 'stop' для преращения работы");
+            Console.WriteLine("Print 'stop' for stop bot.");
 
             string command;
 
             do
             {
                 command = Console.ReadLine();
-            } while (command != "stop") ;
+            } while (command != "stop");
 
             bot.Stop();
         }
 
-        
+
     }
 }

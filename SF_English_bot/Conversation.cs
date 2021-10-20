@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace TelegramBot.SF_English_bot
+namespace SF_English_bot
 {
-    /// <summary>
-    /// Class for chat's object.
-    /// </summary>
     class Conversation
     {
         private Chat telegramChat;
@@ -19,7 +16,7 @@ namespace TelegramBot.SF_English_bot
 
         public Conversation(Chat chat)
         {
-            this.telegramChat = chat;
+            telegramChat = chat;
             telegramMessages = new List<Message>();
         }
     }
