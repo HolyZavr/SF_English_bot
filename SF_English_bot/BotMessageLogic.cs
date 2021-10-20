@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SF_English_bot
 {
@@ -13,7 +14,7 @@ namespace SF_English_bot
     /// </summary>
     class BotMessageLogic
     {
-        private Messanger messanger;
+        private Messenger messanger;
         private Dictionary<long, Conversation> chatList;
         private ITelegramBotClient client;
 
@@ -21,13 +22,13 @@ namespace SF_English_bot
         {
             this.client = client;
             chatList = new Dictionary<long, Conversation>();
-            messanger = new Messanger();
+            messanger = new Messenger();
         }
         public async Task Response(MessageEventArgs e)
         {
-            var Id = e.Message.Chat.Id;
+            var Id = e.Message.Chat.Id; /// получаем id чата, тип данных long, 1ый эллемент коллекции (ключ).
 
-            if (!chatList.ContainsKey(Id))
+            if (!chatList.ContainsKey(Id)) // проверка на наличие чата в коллекции
             {
                 var newchat = new Conversation(e.Message.Chat);
 
@@ -40,5 +41,40 @@ namespace SF_English_bot
 
             await SendTextMessage(chat);
         }
+
+        private async Task SendTextMessage(Conversation chat)
+        {
+            var text = messanger.CreateTextMessage(chat);
+
+            await client.SendTextMessageAsync(chatId: chat.GetId(), text: text);
+        }
+
+        //public InlineKeyboardMarkup ReturnKeBoard()
+        //{
+        //    var buttonList = new List<InlineKeyboardButton>
+        //    {
+        //        new InlineKeyboardButton()
+        //        {
+        //            Text = "Пушкин",
+        //            CallbackData = "pushkin"
+        //        },
+
+        //        new InlineKeyboardButton()
+        //        {
+        //            Text = "Пушкин",
+        //            CallbackData = "pushkin"
+        //        }
+        //    };
+
+        //    var keyboard = new InlineKeyboardMarkup(buttonList);
+
+        //    return keyboard;
+        //}
+
+        //private async Task SendTextWithKeyBoard(Conversation chat, string text, InlineKeyboardMarkup keyboard)
+        //{
+        //    await client.SendTextMessageAsync(
+        //    chatId: chat.GetId(), text: text, replyMarkup: keyboard);
+        //}
     }
 }

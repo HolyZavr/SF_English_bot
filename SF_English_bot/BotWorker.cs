@@ -15,7 +15,7 @@ namespace SF_English_bot
         public void Inizalize()
         {
             client = new TelegramBotClient(BotToken.token);
-            logic = new BotMessageLogic();
+            logic = new BotMessageLogic(client);
         }
 
         public void Start()
@@ -24,14 +24,13 @@ namespace SF_English_bot
             client.OnMessage += TelegramMessageHandler;
         }
 
-        private async void TelegramMessageHandler(object sender, MessageEventArgs e)
+        private async void TelegramMessageHandler(object sender, MessageEventArgs e) //это метод, в уроке, Bot_OnMessage
         {
-            var msg = e.Message;
+            
 
-            if (msg.Text != null)
+            if (e.Message != null)
             {
-                Console.WriteLine($"Пришло сообщение: {msg.Text}");
-                await client.SendTextMessageAsync(msg.Chat.Id, msg.Text, replyToMessageId: msg.MessageId);
+                await logic.Response(e);
             }
         }
 
