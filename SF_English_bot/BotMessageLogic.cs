@@ -48,33 +48,5 @@ namespace SF_English_bot
 
             await client.SendTextMessageAsync(chatId: chat.GetId(), text: text);
         }
-
-        //public InlineKeyboardMarkup ReturnKeBoard()
-        //{
-        //    var buttonList = new List<InlineKeyboardButton>
-        //    {
-        //        new InlineKeyboardButton()
-        //        {
-        //            Text = "Пушкин",
-        //            CallbackData = "pushkin"
-        //        },
-
-        //        new InlineKeyboardButton()
-        //        {
-        //            Text = "Пушкин",
-        //            CallbackData = "pushkin"
-        //        }
-        //    };
-
-        //    var keyboard = new InlineKeyboardMarkup(buttonList);
-
-        //    return keyboard;
-        //}
-
-        //private async Task SendTextWithKeyBoard(Conversation chat, string text, InlineKeyboardMarkup keyboard)
-        //{
-        //    await client.SendTextMessageAsync(
-        //    chatId: chat.GetId(), text: text, replyMarkup: keyboard);
-        //}
     }
 }
